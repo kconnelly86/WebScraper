@@ -45,50 +45,14 @@ request('http://www.foxnews.com', function (error, response, body) {
         .catch(function(err) {
           // If an error occurred, send it to the client
           res.json(err);
-        });
-
- 		
-
-
-      // Save an empty result object
-      // var myTitles = {};
-
-      // // Add the text and href of every link, and save them as properties of the result object
-      // myTitles.title = $(this)
-      //   .children("a")
-      //   .text();
-      // myTitles.link = $(this)
-      //   .children("a")
-      //   .attr("href");
-
-      // // Create a new Article using the `result` object built from scraping
-      // db.Article
-      //   .create(myTitles)
-      //   .then(function(dbArticle) {
-      //     // If we were able to successfully scrape and save an Article, send a message to the client
-      //     res.send("Scrape Complete");
-      //   })
-      //   .catch(function(err) {
-      //     // If an error occurred, send it to the client
-      //     res.json(err);
-      //   });
-    });
- 
-// var myTitles = $('h2.title').text();
-// console.log("_____________________________");
-// console.log(myTitles);
-// console.log("_____________________________");
-
-
-
-  // Print the response status code if a response was received
-  //console.log('statusCode:', response && response.statusCode); 
-  //console.log('body:', body); // Print the HTML for the Google homepage.
+        });// end catch
+    });//ends .each function
+  
  res.send("Scrape complete"); //witout this the page wont load in the browser
-});
+});//end request
 
-})
-//function (req, res) {}
+})// end app .get
+
 
 
 app.listen(PORT, function() {
