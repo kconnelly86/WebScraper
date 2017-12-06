@@ -38,22 +38,22 @@ if(process.env.MONGODB_URI){
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
-var test = mongoose.connection;
-test.on('error', function(err) {
-  console.log('mongoose error: ', err);
-});
+// var db = mongoose.connection;
+// db.on('error', function(err) {
+//   console.log('mongoose error: ', err);
+// });
 
-test.once('open', function() {
-  console.log('mongoose connection successful');
-});
+// db.once('open', function() {
+//   console.log('mongoose connection successful');
+// });
 
 // this creates the DB have to have this.
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-// mongoose.Promise = Promise;
-// mongoose.connect("mongodb://localhost/Article", {
-//   useMongoClient: true
-// });
+mongoose.Promise = Promise;
+mongoose.connect("mongodb://localhost/Article", {
+  useMongoClient: true
+});
 
 // a get route for scraping fox news
 app.get('/scrape', function (req, res) {
