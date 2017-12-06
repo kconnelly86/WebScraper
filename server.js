@@ -46,6 +46,7 @@ app.get('/scrape', function (req, res) {
 
 	 		var myStuff = {};
        myStuff.title = element.children[0].data;
+       myStuff.link = element.attribs.href;
 
 
 	 		// Create a new Article using the `result` object built from scraping
