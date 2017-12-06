@@ -4,6 +4,7 @@
   "description": "Helps you find the articles you want from the site you choose to search from.",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
