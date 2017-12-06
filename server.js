@@ -25,20 +25,26 @@ app.use(express.static("public"));
 // this creates the DB have to have this.
 // Set mongoose to leverage built in JavaScript ES6 Promises
 
-//heroku
-var databaseUri = 'mongodb://localhost/WebScraper';
+//heroku--------------------------------------------------------------------------------------------------------------------------
+var databaseUri = 'mongodb://localhost/Article';
 //var testURI = "mongodb://heroku_3xjhh7w0:sktb46iu0rfom7fhka8j4pcebe@ds133136.mlab.com:33136/heroku_3xjhh7w0";
 if(process.env.MONGODB_URI){
-  mongoose.connect(process.env.MONGO_URI, function(err, testo) {
-    if (err) {
-      console.log("doesnt work");
-    }
-  });
+  
+    mongoose.connect(process.env.MONGODB_URI);
 }else{
-  console.log("connection success to heroku db");
+  
   mongoose.connect(databaseUri);
 }
+//---------------------------------------------------------------------------------------------------------------------------------
 
+var test = mongoose.connection;
+test.on('error', function(err) {
+  console.log('mongoose error: ', err);
+});
+
+test.once('open', function() {
+  console.log('mongoose connection successful');
+});
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect("mongodb://localhost/Article", {
