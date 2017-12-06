@@ -26,28 +26,28 @@ app.use(express.static("public"));
 // Set mongoose to leverage built in JavaScript ES6 Promises
 
 //heroku--------------------------------------------------------------------------------------------------------------------------
-// var databaseUri = mongodb://<dbuser>:<dbpassword>@ds133166.mlab.com:33166/heroku_c9nghwg0;
-
-// if(process.env.MONGODB_URI){
-  
-//     mongoose.connect(process.env.MONGODB_URI);
-// }else{
-  
-//   mongoose.connect(databaseUri);
-// }
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Article";
+
+if(process.env.MONGODB_URI){
+  
+    mongoose.connect(process.env.MONGODB_URI);
+}else{
+  
+  mongoose.connect(MONGODB_URI);
+}
+
 
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
-var test = mongoose.connection;
-test.on('error', function(err) {
-  console.log('mongoose error: ', err);
-});
+// var test = mongoose.connection;
+// test.on('error', function(err) {
+//   console.log('mongoose error: ', err);
+// });
 
-test.once('open', function() {
-  console.log('mongoose connection successful');
-});
+// test.once('open', function() {
+//   console.log('mongoose connection successful');
+// });
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {
