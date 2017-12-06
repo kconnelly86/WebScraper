@@ -16,43 +16,44 @@ var PORT = process.env.PORT || 3000;
 var app = express();
 //database
 var mongoose = require("mongoose");
-
-
+var logger = require("morgan")
+var bodyParser = require("body-parser");
 // Use morgan logger for logging requests
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(logger("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
-// this creates the DB have to have this.
-// Set mongoose to leverage built in JavaScript ES6 Promises
+
 
 //heroku--------------------------------------------------------------------------------------------------------------------------
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/Article";
+var databaseUri = 'mongodb://localhost/Article';
 
 if(process.env.MONGODB_URI){
-  
-    mongoose.connect(process.env.MONGODB_URI);
-}else{
-  
-  mongoose.connect(MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI);    
+}else {
+  mongoose.connect(databaseUri);
 }
 
 
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
-// var test = mongoose.connection;
-// test.on('error', function(err) {
-//   console.log('mongoose error: ', err);
-// });
-
-// test.once('open', function() {
-//   console.log('mongoose connection successful');
-// });
-// Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, {
-  useMongoClient: true
+var test = mongoose.connection;
+test.on('error', function(err) {
+  console.log('mongoose error: ', err);
 });
+
+test.once('open', function() {
+  console.log('mongoose connection successful');
+});
+
+// this creates the DB have to have this.
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+// mongoose.Promise = Promise;
+// mongoose.connect("mongodb://localhost/Article", {
+//   useMongoClient: true
+// });
 
 // a get route for scraping fox news
 app.get('/scrape', function (req, res) {
