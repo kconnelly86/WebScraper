@@ -26,6 +26,7 @@ app.use(express.static("public"));
 
 
 //heroku--------------------------------------------------------------------------------------------------------------------------
+var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/Article'
 var databaseUri = 'mongodb://localhost/Article';
 
 if(process.env.MONGODB_URI){
@@ -51,7 +52,7 @@ if(process.env.MONGODB_URI){
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/Article", {
+mongoose.connect(MONGODB_URI, {
   useMongoClient: true
 });
 
