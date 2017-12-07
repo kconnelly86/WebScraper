@@ -27,27 +27,28 @@ app.use(express.static("public"));
 
 
 //heroku--------------------------------------------------------------------------------------------------------------------------
-var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/Article'
+// var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/Article'
 var databaseUri = 'mongodb://localhost/Article';
 
-// if(process.env.MONGODB_URI){
-//   mongoose.connect(process.env.MONGODB_URI);    
-// }else {
-//   mongoose.connect(databaseUri);
-// }
+if(process.env.MONGODB_URI){
+  
+  mongoose.connect(process.env.MONGODB_URI);    
+}else {
+  mongoose.connect(databaseUri);
+}
 
 
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
-// var db = mongoose.connection;
-// db.on('error', function(err) {
-//   console.log('mongoose error: ', err);
-// });
+var db = mongoose.connection;
+db.on('error', function(err) {
+  console.log('mongoose error: ', err);
+});
 
-// db.once('open', function() {
-//   console.log('mongoose connection successful');
-// });
+db.once('open', function() {
+  console.log('mongoose connection successful');
+});
 
 // this creates the DB have to have this.
 // Set mongoose to leverage built in JavaScript ES6 Promises
@@ -59,7 +60,7 @@ mongoose.connect(MONGODB_URI, {
 
 // a get route for scraping fox news
 app.get('/scrape', function (req, res) {
-	//console.log(res);
+	// console.log(res);
 	// grabs the body of the html with request
 	request('http://www.foxnews.com', function (error, response, body) {
 	  console.log('error:', error); // Print the error if one occurred
