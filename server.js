@@ -7,7 +7,7 @@ var request = require('request');
 //the scraper
 var cheerio = require('cheerio');
 //require all models
-var db = require("./models");
+var db = require("./Models");
 
 var path  = require('path')
 
@@ -27,11 +27,11 @@ app.use(express.static("public"));
 
 
 //heroku--------------------------------------------------------------------------------------------------------------------------
-// var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/Article'
+var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/Article'
 var databaseUri = 'mongodb://localhost/Article';
 
 if(process.env.MONGODB_URI){
-  
+
   mongoose.connect(process.env.MONGODB_URI);    
 }else {
   mongoose.connect(databaseUri);
@@ -41,12 +41,12 @@ if(process.env.MONGODB_URI){
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
-var db = mongoose.connection;
-db.on('error', function(err) {
+var db1 = mongoose.connection;
+db1.on('error', function(err) {
   console.log('mongoose error: ', err);
 });
 
-db.once('open', function() {
+db1.once('open', function() {
   console.log('mongoose connection successful');
 });
 
